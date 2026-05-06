@@ -1,6 +1,6 @@
 # Diagnostic-only compose override for direct API benchmarking/debugging.
-# Not part of submission topology; use only with submission/docker-compose.yml via:
-#   docker compose -f submission/docker-compose.yml -f experiments/docker-compose.direct-api.yml up
+# Not part of submission topology; use only with docker-compose.yml via:
+#   docker compose -f docker-compose.yml -f experiments/docker-compose.direct-api.yml up
 services:
   api-1:
     environment:
