@@ -70,12 +70,12 @@ async function main() {
   console.log("Pass 1: Counting entries...");
   let totalCount = 0;
   const partitionCounts = new Uint32Array(NUM_PARTITIONS);
-  
+
   await processStream(inputPath, (vec) => {
     partitionCounts[computeKey(vec)]++;
     totalCount++;
   });
-  
+
   console.log(`  ${totalCount.toLocaleString()} entries in ${NUM_PARTITIONS} partitions`);
 
   const partitionStarts = new Uint32Array(NUM_PARTITIONS);
@@ -88,7 +88,7 @@ async function main() {
   const vectorBytes = totalCount * DIMS * 2;
   const labelBytes = totalCount;
   const totalBytes = headerBytes + vectorBytes + labelBytes;
-  
+
   const buf = new ArrayBuffer(totalBytes);
   const dv = new DataView(buf);
   dv.setUint32(0, MAGIC, false);
