@@ -32,4 +32,4 @@ bun run experiments/bench-http-arrival-rate.ts
 ```
 
 ---
-*QRust: Provando que TypeScript puro pode competir no topo, sem Rust.*
+*QRust: Provando que TypeScript puro pode competir no topo, sem uma linguagem compilada (QuasiRust logo disponivel como opensource).* ⭐

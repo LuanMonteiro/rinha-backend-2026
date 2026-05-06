@@ -1,0 +1,16 @@
+{
+    "participants": [
+        "Luan Monteiro"
+    ],
+    "social": [
+        "https://github.com/LuanMonteiro",
+        "https://www.linkedin.com/in/luanmonteiro/"
+    ],
+    "source-code-repo": "https://github.com/LuanMonteiro/rinha-backend-2026",
+    "stack": [
+        "bun",
+        "typescript",
+        "haproxy"
+    ],
+    "open_to_work": true
+}
