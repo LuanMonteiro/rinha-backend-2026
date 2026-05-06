@@ -65,9 +65,19 @@ const serverOpts: any = {
     return new Response("not found", { status: 404 });
   },
 };
+// Startup
+ds = loadDataset();
+
+const dimBins = new Map<number, number>();
+dimBins.set(0, 16);  // amount
+dimBins.set(12, 8);  // mcc_risk (muito seletivo)
+dimBins.set(6, 8);   // km_from_current
+
+const gridStart = performance.now();
+grid = strategy === "S0" ? null : buildGridV2(ds, dimBins);
+console.log(`Grid built in ${(performance.now() - gridStart).toFixed(0)}ms`);
+
 const server = Bun.serve(serverOpts);
-
-
 if (socketPath) {
   try {
     chmodSync(socketPath, 0o666);
@@ -76,18 +86,6 @@ if (socketPath) {
   }
 }
 
-// Startup
-console.log(`API server starting on ${socketPath ? "socket " + socketPath : "port " + server.port}...`);
-ds = loadDataset();
-
-const dimBins = new Map<number, number>();
-dimBins.set(1, 128); // merchant_id (super seletivo)
-dimBins.set(6, 16);  // km_from_current
-dimBins.set(5, 8);   // minutes_since_last
-
-const gridStart = performance.now();
-grid = strategy === "S0" ? null : buildGridV2(ds, dimBins);
-console.log(`Grid built in ${(performance.now() - gridStart).toFixed(0)}ms`);
-
 ready = true;
+console.log(`API server starting on ${socketPath ? "socket " + socketPath : "port " + server.port}...`);
 console.log("Ready to serve requests");
