@@ -1,6 +1,6 @@
 services:
   api-1:
-    image: qrust-concept-api:latest
+    image: luanmonteiro1/qrust-concept-api
     container_name: qrust-concept-api-1
     environment:
       - API_SOCKET=/var/run/rinha/api1.sock
@@ -20,7 +20,7 @@ services:
       start_period: 20s
 
   api-2:
-    image: qrust-concept-api:latest
+    image: luanmonteiro1/qrust-concept-api
     container_name: qrust-concept-api-2
     environment:
       - API_SOCKET=/var/run/rinha/api2.sock
