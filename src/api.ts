@@ -30,7 +30,7 @@ const socketPath = process.env.API_SOCKET;
 if (socketPath) {
   try {
     unlinkSync(socketPath);
-  } catch (e) {}
+  } catch (e) { }
 }
 
 const serverOpts: any = {
@@ -43,7 +43,7 @@ const serverOpts: any = {
 
     if (path === "/fraud-score" && req.method === "POST") {
       if (!ready) return new Response("not ready", { status: 503 });
-      
+
       const body = await req.bytes();
       const cached = responseCache.get(body);
       if (cached !== undefined) {

@@ -120,7 +120,7 @@ export function buildGridV2(ds: LoadedDataset, dimBins: Map<number, number> = ne
         if (next === j) break;
         const bJ = (pStart + j) * DIMS;
         const bN = (pStart + next) * DIMS;
-        for (let d = 0; d < DIMS; d++) { const t = vectors[bJ+d]; vectors[bJ+d] = vectors[bN+d]; vectors[bN+d] = t; }
+        for (let d = 0; d < DIMS; d++) { const t = vectors[bJ + d]; vectors[bJ + d] = vectors[bN + d]; vectors[bN + d] = t; }
         const tL = labels[pStart + j]; labels[pStart + j] = labels[pStart + next]; labels[pStart + next] = tL;
         const tK = cellKeys[j]; cellKeys[j] = cellKeys[next]; cellKeys[next] = tK;
         j = next;
@@ -148,13 +148,13 @@ export function buildGridV2(ds: LoadedDataset, dimBins: Map<number, number> = ne
       cellStarts[ci] = start;
       cellCounts[ci] = count;
       const mi = ci * DIMS;
-      for (let d = 0; d < DIMS; d++) { bboxMinFlat[mi+d] = 32767; bboxMaxFlat[mi+d] = -32768; }
+      for (let d = 0; d < DIMS; d++) { bboxMinFlat[mi + d] = 32767; bboxMaxFlat[mi + d] = -32768; }
       for (let k = 0; k < count; k++) {
         const vBase = (start + k) * DIMS;
         for (let d = 0; d < DIMS; d++) {
           const v = vectors[vBase + d];
-          if (v < bboxMinFlat[mi+d]) bboxMinFlat[mi+d] = v;
-          if (v > bboxMaxFlat[mi+d]) bboxMaxFlat[mi+d] = v;
+          if (v < bboxMinFlat[mi + d]) bboxMinFlat[mi + d] = v;
+          if (v > bboxMaxFlat[mi + d]) bboxMaxFlat[mi + d] = v;
         }
       }
     }
