@@ -24,4 +24,4 @@ COPY --from=builder /app/package.json /app/tsconfig.json ./
 COPY --from=builder /app/src/ /app/src/
 COPY --from=builder /app/dataset.bin /app/dataset.bin
 
-CMD ["bun", "run", "src/api.ts"]
+CMD ["sh", "-c", "bun run scripts/validate-dataset.ts && bun run src/api.ts"]
