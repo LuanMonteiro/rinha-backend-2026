@@ -68,11 +68,7 @@ const serverOpts: any = {
 };
 
 const BIN_PATH = join(import.meta.dir, "..", "dataset.bin");
-if (!existsSync(BIN_PATH)) {
-  console.warn("⚠️  dataset.bin não encontrado. API subindo em modo 'vazio' para o Smoke Test.");
-  ready = true; // Permite que o healthcheck passe
-} else {
-  // Startup
+if (existsSync(BIN_PATH)) {
   ds = loadDataset();
 
   const dimBins = new Map<number, number>();
@@ -84,13 +80,17 @@ if (!existsSync(BIN_PATH)) {
   grid = strategy === "S0" ? null : buildGridV2(ds, dimBins);
   console.log(`Grid built in ${(performance.now() - gridStart).toFixed(0)}ms`);
 
-  const server = Bun.serve(serverOpts);
-  if (socketPath) {
-    try {
-      chmodSync(socketPath, 0o666);
-    } catch (e) {
-      console.error("Failed to chmod socket:", e);
-    }
+} else {
+  console.warn("⚠️  dataset.bin não encontrado. API subindo em modo 'vazio' para o Smoke Test.");
+  ready = true; // Permite que o healthcheck passe
+}
+
+const server = Bun.serve(serverOpts);
+if (socketPath) {
+  try {
+    chmodSync(socketPath, 0o666);
+  } catch (e) {
+    console.error("Failed to chmod socket:", e);
   }
 }
 

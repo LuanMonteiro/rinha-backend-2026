@@ -1,4 +1,4 @@
-import { readFileSync } from "fs";
+import { readFileSync, existsSync } from "fs";
 import { join } from "path";
 import { MAGIC, SENTINEL_INT16 } from "./config";
 
@@ -18,6 +18,9 @@ export function loadDataset(): LoadedDataset {
 
   const start = performance.now();
   const binPath = join(import.meta.dir, "..", "dataset.bin");
+
+  if (!existsSync(binPath))
+    return null as any;
 
   const buf = readFileSync(binPath);
   const view = new DataView(buf.buffer, buf.byteOffset, buf.byteLength);
